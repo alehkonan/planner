@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Deposit {
+  id            Int      @id @default(autoincrement())
+  name          String
+  balance       Int
+  interest_rate Decimal
+  open_date     DateTime
+  close_date    DateTime
+  Incomes       Income?  @relation(fields: [incomeId], references: [id])
+  incomeId      Int?
+}
+
+model Income {
+  id       Int       @id @default(autoincrement())
+  salary   Int
+  deposits Deposit[]
+}

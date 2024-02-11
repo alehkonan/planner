@@ -7,7 +7,7 @@ type InputProps = ComponentProps<'input'> & {
 
 export function Input({ label, description, ...props }: InputProps) {
   return (
-    <label>
+    <label className="form-field">
       {label}
       <input {...props} />
       <p className="description">{description}</p>

@@ -7,7 +7,7 @@ type SelectProps = ComponentProps<'select'> & {
 
 export function Select({ options, label, ...props }: SelectProps) {
   return (
-    <label>
+    <label className="form-field">
       {label}
       <select {...props}>
         {options.map((option) => (

@@ -3,10 +3,16 @@ import { Column } from './Column';
 import { Input } from './Input';
 import { Select } from './Select';
 import { Deposit } from './Deposit';
+import { type Deposit as TDeposit } from '@prisma/client';
 
-export const App = () => {
+type AppProps = {
+  salary: number;
+  deposits: TDeposit[];
+};
+
+export const App = ({ salary, deposits }: AppProps) => {
   return (
-    <>
+    <div className="app">
       <header className="header">
         <h1>Planner app</h1>
         <div className="inputs">
@@ -18,19 +24,21 @@ export const App = () => {
 
       <main className="main">
         <Column title="Доходы">
-          <Input label="Зарплата" type="number" />
+          <Input label="Зарплата" type="number" defaultValue={salary} />
           <Input label="Продажи" type="number" />
           <hr />
           <h2>Депозиты</h2>
-          <Deposit
-            name="Первый депозит"
-            balance={0}
-            interestRate={0}
-            openDate={new Date().toISOString().substring(0, 10)}
-            closeDate={new Date().toISOString().substring(0, 10)}
-          />
           <button>Добавить депозит</button>
-          <div id="deposits"></div>
+          {deposits.map((deposit) => (
+            <Deposit
+              key={deposit.id}
+              name={deposit.name}
+              balance={deposit.balance}
+              interestRate={deposit.interest_rate.toNumber()}
+              openDate={deposit.open_date.toISOString().substring(0, 10)}
+              closeDate={deposit.close_date.toISOString().substring(0, 10)}
+            />
+          ))}
         </Column>
         <Column title="Расходы">
           <span>Базовые</span>
@@ -91,10 +99,12 @@ export const App = () => {
 
       <footer className="footer">
         <h2>Годовой отчет</h2>
-        <Input label="Начальный баланс" type="number" />
-        <Input label="Планируемый годовой доход" type="number" />
-        <Input label="Итоговый баланс" type="number" />
+        <div className="inputs">
+          <Input label="Начальный баланс" type="number" />
+          <Input label="Планируемый годовой доход" type="number" />
+          <Input label="Итоговый баланс" type="number" />
+        </div>
       </footer>
-    </>
+    </div>
   );
 };

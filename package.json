@@ -3,11 +3,16 @@
   "type": "module",
   "module": "index.ts",
   "scripts": {
+    "db:init": "prisma init --datasource-provider sqlite",
+    "db:push": "prisma db push --accept-data-loss",
+    "db:editor": "prisma studio --browser none",
     "start": "bun run --watch index.ts",
     "build": "bun build ./index.ts --outdir ./dist",
     "build:bin": "bun build ./index.ts --compile --outfile ./dist/app"
   },
   "dependencies": {
+    "@prisma/client": "^5.9.1",
+    "prisma": "^5.9.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

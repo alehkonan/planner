@@ -1,4 +1,5 @@
 import { App } from 'components/App';
+import { client } from 'prisma/client';
 import { renderToString } from 'react-dom/server';
 
 export const router = async (req: Request) => {
@@ -6,8 +7,22 @@ export const router = async (req: Request) => {
 
   switch (url.pathname) {
     case '/':
+      const income = await client.income.findFirst({
+        include: { deposits: true },
+      });
+
+      console.log(income);
+
+      if (!income) {
+        return new Response('There is no income in database', {
+          status: 404,
+        });
+      }
+
       const page = await Bun.file('static/index.html').text();
-      const app = renderToString(<App />);
+      const app = renderToString(
+        <App salary={income.salary} deposits={income.deposits} />
+      );
       const body = page.replace('{{app}}', app);
 
       return new Response(body, {
