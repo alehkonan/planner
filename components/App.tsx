@@ -16,8 +16,16 @@ export const App = ({ salary, deposits }: AppProps) => {
       <header className="header">
         <h1>Planner app</h1>
         <div className="inputs">
-          <Select label="Год" options={years} />
-          <Select label="Месяц" options={months} defaultValue="february" />
+          <Select
+            label="Год"
+            options={years}
+            defaultValue={new Date().getFullYear()}
+          />
+          <Select
+            label="Месяц"
+            options={months}
+            defaultValue={new Date().getMonth()}
+          />
           <Input label="Курс доллара" type="number" defaultValue="2.67" />
         </div>
       </header>

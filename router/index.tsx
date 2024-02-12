@@ -11,8 +11,6 @@ export const router = async (req: Request) => {
         include: { deposits: true },
       });
 
-      console.log(income);
-
       if (!income) {
         return new Response('There is no income in database', {
           status: 404,
