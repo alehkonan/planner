@@ -1,4 +1,4 @@
-import { handleError } from 'errors/handler';
+import { handleError } from 'handlers/handleError';
 import { router } from 'router';
 
 const port = process.env.PORT || 3000;

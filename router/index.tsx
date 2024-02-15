@@ -1,36 +1,27 @@
-import { App } from 'components/App';
-import { client } from 'prisma/client';
-import { renderToString } from 'react-dom/server';
+import { renderApp } from 'handlers/renderApp';
+import { changeSalary } from 'handlers/changeSalary';
+import { response } from 'helpers';
+import { handleStatic } from 'handlers/handleStatic';
 
 export const router = async (req: Request) => {
-  const url = new URL(req.url);
+  const { pathname } = new URL(req.url);
 
-  switch (url.pathname) {
+  switch (pathname) {
     case '/':
-      const income = await client.income.findFirst({
-        include: { deposits: true },
-      });
+      const app = await renderApp();
+      return response.html(app);
 
-      if (!income) {
-        return new Response('There is no income in database', {
-          status: 404,
-        });
+    case '/change-salary':
+      switch (req.method) {
+        case 'PATCH':
+          const salary = await changeSalary(req);
+          return response.json(salary);
+
+        default:
+          return response.methodNotAllowed();
       }
 
-      const page = await Bun.file('static/index.html').text();
-      const app = renderToString(
-        <App salary={income.salary} deposits={income.deposits} />
-      );
-      const body = page.replace('{{app}}', app);
-
-      return new Response(body, {
-        headers: { 'Content-Type': 'text/html' },
-      });
-
     default:
-      const file = Bun.file(`static/${url.pathname}`);
-      return file.size
-        ? new Response(file)
-        : new Response('Not found', { status: 404 });
+      return handleStatic(pathname);
   }
 };
