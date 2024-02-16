@@ -1,0 +1,20 @@
+env:
+  node: true
+parser: '@typescript-eslint/parser'
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/recommended
+settings:
+  import/resolver:
+    node:
+      extensions: ['.js', '.ts', '.jsx', '.tsx']
+      moduleDirectory: ['node_modules', '.']
+rules:
+  import/order:
+    - warn
+    - newlines-between: never
+      alphabetize:
+        order: asc
+        orderImportKind: asc
+        caseInsensitive: true

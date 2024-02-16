@@ -1,11 +1,11 @@
+import { renderToString } from 'react-dom/server';
 import { Column } from 'components/Column';
+import { Deposit } from 'components/Deposit';
 import { Input } from 'components/Input';
 import { Page } from 'components/Page';
 import { Select } from 'components/Select';
 import { months, years } from 'data/constants';
-import { Deposit } from 'components/Deposit';
 import { client } from 'prisma/client';
-import { renderToString } from 'react-dom/server';
 
 /**
  * @returns html that can be displayed by browser
