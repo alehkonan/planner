@@ -1,6 +1,6 @@
 import { changeSalary } from 'handlers/changeSalary';
+import { getApp } from 'handlers/getApp';
 import { handleStatic } from 'handlers/handleStatic';
-import { renderApp } from 'handlers/renderApp';
 import { response } from 'helpers';
 
 export const router = async (req: Request) => {
@@ -8,14 +8,14 @@ export const router = async (req: Request) => {
 
   switch (pathname) {
     case '/': {
-      const app = await renderApp();
+      const app = await getApp();
       return response.html(app);
     }
 
     case '/change-salary':
       switch (req.method) {
         case 'PATCH': {
-          const salary = await changeSalary();
+          const salary = await changeSalary(req);
           return response.json(salary);
         }
 

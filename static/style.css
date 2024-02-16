@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .form-field {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -48,9 +54,6 @@
     .column {
       padding: 8px;
       border: 1px solid;
-      display: grid;
-      gap: 4px;
-      grid-auto-rows: min-content;
     }
   }
 

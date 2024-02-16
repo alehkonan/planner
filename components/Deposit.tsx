@@ -17,11 +17,11 @@ export function Deposit({
 }: DepositProps) {
   return (
     <>
-      <Input label="Название" defaultValue={name} />
-      <Input label="Баланс" type="number" defaultValue={balance} />
-      <Input label="Ставка" type="number" defaultValue={interestRate} />
-      <Input label="Дата открытия" type="date" defaultValue={openDate} />
-      <Input label="Дата закрытия" type="date" defaultValue={closeDate} />
+      <Input defaultValue={name} label="Название" />
+      <Input defaultValue={balance} label="Баланс" type="number" />
+      <Input defaultValue={interestRate} label="Ставка" type="number" />
+      <Input defaultValue={openDate} label="Дата открытия" type="date" />
+      <Input defaultValue={closeDate} label="Дата закрытия" type="date" />
       <hr />
     </>
   );

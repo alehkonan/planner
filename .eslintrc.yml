@@ -3,6 +3,7 @@ env:
 parser: '@typescript-eslint/parser'
 extends:
   - eslint:recommended
+  - plugin:react/recommended
   - plugin:@typescript-eslint/recommended
   - plugin:import/recommended
 settings:
@@ -11,6 +12,13 @@ settings:
       extensions: ['.js', '.ts', '.jsx', '.tsx']
       moduleDirectory: ['node_modules', '.']
 rules:
+  react/react-in-jsx-scope: off
+  react/jsx-sort-props:
+    - warn
+    - ignoreCase: true
+      shorthandLast: true
+      multiline: first
+      reservedFirst: true
   import/order:
     - warn
     - newlines-between: never
