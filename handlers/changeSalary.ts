@@ -1,13 +1,18 @@
+import { parse, string, transform } from 'valibot';
+import { USER_ID } from 'config';
+import { response } from 'helpers';
 import { client } from 'prisma/client';
 
 export async function changeSalary(req: Request) {
   const formData = await req.formData();
-  const salary = formData.get('salary');
-  if (!salary) return response.badRequest('Salary is not defined');
-  const { salary } = await client.income.update({
-    where: { id: 1 },
-    data: { salary: 1999 },
+  const input = formData.get('salary');
+
+  const salary = parse(transform(string(), Number), input);
+
+  const data = await client.income.update({
+    where: { id: USER_ID },
+    data: { salary },
   });
 
-  return salary;
+  return response.json(data.salary);
 }

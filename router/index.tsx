@@ -7,17 +7,19 @@ export const router = async (req: Request) => {
   const { pathname } = new URL(req.url);
 
   switch (pathname) {
-    case '/': {
-      const app = await getApp();
-      return response.html(app);
-    }
+    case '/':
+      switch (req.method) {
+        case 'GET':
+          return getApp();
+
+        default:
+          return response.methodNotAllowed();
+      }
 
     case '/change-salary':
       switch (req.method) {
-        case 'PATCH': {
-          const salary = await changeSalary(req);
-          return response.json(salary);
-        }
+        case 'PATCH':
+          return changeSalary(req);
 
         default:
           return response.methodNotAllowed();

@@ -1,13 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "dev.db"
 }
 
 model Deposit {
@@ -17,7 +14,7 @@ model Deposit {
   interest_rate Decimal
   open_date     DateTime
   close_date    DateTime
-  Incomes       Income?  @relation(fields: [incomeId], references: [id])
+  Incomes       Income?  @relation(fields: [incomeId], references: [id], onDelete: Cascade)
   incomeId      Int?
 }
 

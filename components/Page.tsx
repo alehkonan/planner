@@ -13,6 +13,7 @@ export function Page({ children, title }: PropsWithChildren<PageProps>) {
         <title>{title}</title>
         <link href="style.css" rel="stylesheet" />
         <script src="htmx.min.js" />
+        <script src="modal.js" type="module" />
       </head>
       <body>{children}</body>
     </html>
